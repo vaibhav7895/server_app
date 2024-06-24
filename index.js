@@ -8,7 +8,7 @@ const io = require('socket.io')(8080, {
     }
 });
 
-// Connect DB
+
 
 
 // Import Files
@@ -119,7 +119,7 @@ app.post('/api/login', async (req, res, next) => {
                         userId: user._id,
                         email: user.email
                     }
-                    const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY || 'THIS_IS_A_JWT_SECRET_KEY';
+                    const JWT_SECRET_KEY = "hello" || 'THIS_IS_A_JWT_SECRET_KEY';
 
                     jwt.sign(payload, JWT_SECRET_KEY, { expiresIn: 84600 }, async (err, token) => {
                         await Users.updateOne({ _id: user._id }, {
@@ -234,7 +234,7 @@ app.post('/api/logout', async (req, res) => {
             return res.status(400).send('Token not provided');
         }
         
-        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY || 'THIS_IS_A_JWT_SECRET_KEY');
+        const decoded = jwt.verify(token, "hello" || 'THIS_IS_A_JWT_SECRET_KEY');
         const userId = decoded.userId;
         
         // Remove token from user document
