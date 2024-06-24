@@ -9,12 +9,13 @@ const io = require('socket.io')(8080, {
 });
 
 // Connect DB
-require('./db/connection');
+
 
 // Import Files
 const Users = require('./models/Users');
 const Conversations = require('./models/Conversations');
 const Messages = require('./models/Messages');
+const { connection } = require('./db/connection');
 
 // app Use
 const app = express();
@@ -22,7 +23,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
-const port = process.env.PORT || 8000;
+
 
 // Socket.io
 let users = [];
@@ -225,8 +226,7 @@ app.get('/api/users/:userId', async (req, res) => {
     }
 })
 
-// Server-side (logout route)
-// Server-side (logout route)
+
 app.post('/api/logout', async (req, res) => {
     try {
         const token = req.headers['authorization']?.split(' ')[1]; // Extract token from Authorization header
@@ -249,6 +249,13 @@ app.post('/api/logout', async (req, res) => {
 
 
 
-app.listen(port, () => {
-    console.log('listening on port ' + port);
-})
+app.listen(8000, async () => {
+    try {
+        await connection;
+        console.log("Connected to the database");
+        
+    } catch (err) {
+        console.error("Error connecting to the database:", err);
+    }
+    console.log("Server started on port 8080");
+});
