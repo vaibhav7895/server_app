@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const io = require('socket.io')(8080, {
     cors: {
-        origin: 'https://chat-22jkjzh3u-vaibhav7895s-projects.vercel.app/',
+        origin: 'https://chat-rfn8shfl8-vaibhav7895s-projects.vercel.app/',
     }
 });
 
